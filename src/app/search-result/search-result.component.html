@@ -1,0 +1,35 @@
+<form class="example-form">
+    <div fxLayoutAlign="space-between center">
+        <div>
+            <mat-form-field>
+                <input matInput placeholder="Search">
+            </mat-form-field>
+            <button mat-mini-fab color="primary" [routerLink]="'/home/search'">
+                <mat-icon>search</mat-icon>
+            </button>
+        </div>
+        <a mat-raised-button color="accent" href="home/edit">
+        Add Book    
+            <!-- <mat-icon>add</mat-icon> -->
+        </a>
+    </div>
+</form>
+<h4>Recent Books</h4>
+
+<div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="32px" fxLayoutAlign="flex-start">
+    <mat-card *ngFor="let b of books" fxFlex="0 0 300px" fxFlex.lt-md="0 1 calc(50% - 32px)"
+        fxFlex.lt-sm="100%">
+        <mat-card-content fxLayout="row" fxLayoutGap="20px">
+            <img class="image_box" mat-card-image src="http://localhost:3300/{{b.image1}}" alt="Image">
+            <div>
+                <mat-card-title>{{b.title}}</mat-card-title>
+                <mat-card-subtitle>{{b.description}}</mat-card-subtitle>
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-icon-button (click)="deleteBook(b._id)" name="shovan">
+                <mat-icon color="primary">delete</mat-icon>
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</div>

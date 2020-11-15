@@ -1,0 +1,63 @@
+<div>
+    <form #bookForm="ngForm">
+        <!-- {{bookForm.value | json}} -->
+        <div fxLayout="row wrap" fxLayoutGap="32px">
+            {{bookModel | json}}
+            <mat-form-field fxFlex="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%">
+                <mat-label>Title</mat-label>
+                <input matInput required [(ngModel)]="bookModel.title" name="title">
+            </mat-form-field>
+            <mat-form-field fxFlex="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%">
+                <mat-label>Author</mat-label>
+                <input matInput [(ngModel)]="bookModel.author" name="author">
+            </mat-form-field>
+            <mat-form-field fxFlex="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%">
+                <mat-label>Description</mat-label>
+                <input matInput [(ngModel)]="bookModel.description" name="description">
+            </mat-form-field>
+            <mat-form-field fxFlex="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%">
+                <mat-label>Category</mat-label>
+                <mat-select [(ngModel)]="bookModel.category" name="category">
+                    <mat-option *ngFor="let cat of categories" value="{{cat.categoryName}}">
+                        {{cat.categoryName}}
+                    </mat-option>
+                </mat-select>        
+            </mat-form-field>
+            <mat-form-field fxFlex="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%">
+                <mat-label>Image</mat-label>
+                <input matInput disabled value="{{bookModel.image1}}">
+            </mat-form-field>
+            <div fxFlex="100%" fxLayout="row" fxLayoutGap="10px">
+                <input type="file" hidden #fileInput (change)="onFileSelected($event)">
+                <button mat-raised-button color="accent" (click)="fileInput.click()"
+                    type="button">Add Photo</button>
+            </div>
+            <div fxFlex="100%" fxLayout="row" fxLayoutGap="10px">
+                <br>
+            </div>
+            <mat-form-field fxFlex="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%">
+                <mat-label>Purpose</mat-label>
+                <mat-select [(ngModel)]="bookModel.purpose" name="purpose">
+                    <mat-option value="Donate">Donate</mat-option>
+                    <mat-option value="Share">Share</mat-option>
+                </mat-select>        
+            </mat-form-field>
+            <mat-form-field fxFlex="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%">
+                <mat-label>Contact Name</mat-label>
+                <input matInput [(ngModel)]="bookModel.contactName" name="contactName">
+            </mat-form-field>
+            <mat-form-field fxFlex="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%">
+                <mat-label>Phone</mat-label>
+                <input matInput [(ngModel)]="bookModel.phone" name="phone">
+            </mat-form-field>
+            <!-- <mat-form-field>
+                <ngx-mat-file-input formControlName="basicfile" placeholder="Basic Input"></ngx-mat-file-input>
+                <mat-icon matSuffix>folder</mat-icon>
+            </mat-form-field> -->
+            <div fxFlex="100%" fxLayout="row wrap" fxLayoutGap="10px">
+                <button mat-raised-button color="primary" (click)="handleSubmit()">Submit</button>
+                <a mat-raised-button href="home/search">Cancel</a>
+            </div>
+        </div>
+    </form>
+</div>

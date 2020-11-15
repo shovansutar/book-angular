@@ -1,0 +1,22 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button (click)="opened = !opened">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>Donate N Share Books</span>
+</mat-toolbar>
+<div></div>
+<mat-sidenav-container>
+  <mat-sidenav [(opened)]="opened">
+    <b>Categories</b>
+    <mat-nav-list>
+      <a *ngFor="let cat of categories" mat-list-item href="{{cat.categoryId}}">{{cat.categoryName}}</a>
+      <a mat-list-item href="...">Two</a>
+      <a mat-list-item href="...">Three</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+    <!-- <app-edit-book></app-edit-book>
+    <app-search-result></app-search-result> -->
+</mat-sidenav-content>
+</mat-sidenav-container>
