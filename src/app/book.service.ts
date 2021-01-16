@@ -9,10 +9,13 @@ import { map, switchMap, debounceTime, catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class BookService {
-  private CATEGORY_REST = "http://localhost:3300/api/category";
-  private BOOK_REST = "http://localhost:3300/api/book";
-  private BOOK_REST_BAD = "http://localhost:3300/api/buuk";
-  private FILE_UPLOAD = "http://localhost:3300/api/upload";
+  private CATEGORY_REST   = "http://localhost:3300/api/category";
+  private BOOK_REST       = "http://localhost:3300/api/book";
+  private BOOK_SEARCH     = "http://localhost:3300/api/bookSearch";
+  private FILE_UPLOAD     = "http://localhost:3300/api/upload";
+  private REGISTER        = "http://localhost:3300/api/register";
+  private LOGIN           = "http://localhost:3300/api/login";
+  
 
   constructor(private httpClient: HttpClient) { }
   public getCategories() {
@@ -20,6 +23,16 @@ export class BookService {
   }
   public getAllBooks() {
     return this.httpClient.get(this.BOOK_REST);
+  }
+  
+  public getByPattern(pattern: string) {
+    // console.log("pattern = ", pattern, typeof pattern, pattern.length);
+    if (pattern == '') {
+      // console.log("Found null param");
+      return this.httpClient.get(this.BOOK_REST);
+    } else {
+      return this.httpClient.get(this.BOOK_SEARCH + '/' + pattern);
+    }
   }
 
   public uploadImage(file: File){
@@ -36,6 +49,23 @@ export class BookService {
   public deleteBook(bid){
     console.log("Service > DeleteBook: ", bid);
     return this.httpClient.delete(this.BOOK_REST + '/' + bid);      
+  }
+
+  public registerUser(user){
+    console.log("Service > RegisterUser: ", user);
+    return this.httpClient.post<any>(this.REGISTER, user);  
+  }
+
+  public loginUser(user){
+    console.log("Service > LoginUser: ", user);
+    return this.httpClient.post<any>(this.LOGIN, user);  
+  }
+  public loggedIn(){
+    return !! localStorage.getItem('token');
+  }
+  public logout(){
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
   }
 }
 

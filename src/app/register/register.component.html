@@ -1,0 +1,26 @@
+<mat-card>
+    <mat-card-content>
+        <form>
+            <h4>Register</h4>
+            <mat-form-field>
+                <mat-label>Email</mat-label>
+                <input matInput required name="email" [(ngModel)]="registerUserData.email">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Password</mat-label>
+                <input matInput required name="password" [(ngModel)]="registerUserData.password">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Name</mat-label>
+                <input matInput required name="name" [(ngModel)]="registerUserData.name">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Phone</mat-label>
+                <input matInput required name="phone" [(ngModel)]="registerUserData.phone">
+            </mat-form-field>
+        </form>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="registerUser()">Submit</button>
+    </mat-card-actions>
+</mat-card>

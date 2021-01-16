@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule, Routes } from '@angular/router'
 
@@ -16,19 +16,26 @@ import {MatListModule} from '@angular/material/list';
 import {MatCardModule} from '@angular/material/card';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 import { HomeComponent } from './home/home.component';
 import { SearchResultComponent } from './search-result/search-result.component';
 import { EditBookComponent } from './edit-book/edit-book.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './auth.guard';
+import { TokenInterceptorService } from './token-interceptor.service';
 
 const routes: Routes = [
   { 
     path: 'home', 
     component: HomeComponent,
     children:[
-      {path: 'search', component: SearchResultComponent},
-      {path: 'edit', component: EditBookComponent}
+      { path: 'login'     , component: LoginComponent},
+      { path: 'register'  , component: RegisterComponent},
+      { path: 'search'    , component: SearchResultComponent},
+      { path: 'edit'      , component: EditBookComponent, canActivate:[AuthGuard] }
     ] 
   },
   { path: '', redirectTo: '/home/search', pathMatch: 'full'},
@@ -41,7 +48,9 @@ const routes: Routes = [
     HomeComponent,
     SearchResultComponent,
     EditBookComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
@@ -58,9 +67,16 @@ const routes: Routes = [
     MatListModule,
     MatCardModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    MatGridListModule
   ],
-  providers: [],
+  providers: [ AuthGuard, 
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    }
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -46,7 +46,10 @@ export class EditBookComponent implements OnInit {
       );
 
     },
-      err => console.log('MAIN-HTTP Error', err),
+      err => {
+        console.log('MAIN-HTTP Error', err);
+        this.router.navigate(['home/login']);
+      },
       () => console.log('MAIN-HTTP request completed.')
     );
   }
