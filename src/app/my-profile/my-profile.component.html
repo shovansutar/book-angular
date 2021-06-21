@@ -1,0 +1,22 @@
+<mat-card>
+    <mat-card-content>
+        <form>
+            <h4>My Profile</h4>
+            <mat-form-field>
+                <mat-label>Name</mat-label>
+                <input matInput required name="name" [(ngModel)]="profile.name">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Email</mat-label>
+                <input matInput readonly name="email" [(ngModel)]="profile.email">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Phone</mat-label>
+                <input matInput required name="phone" [(ngModel)]="profile.phone">
+            </mat-form-field>
+        </form>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-raised-button color="primary" >Update</button>
+    </mat-card-actions>
+</mat-card>

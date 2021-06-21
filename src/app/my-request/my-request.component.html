@@ -1,0 +1,47 @@
+<h3>Requests Waiting on Me</h3>
+<table>
+    <tr>
+        <th>Book</th>
+        <th>Requester</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </tr>
+    <tr *ngFor="let sr of pending">
+        <td>{{sr.bookName}}</td>
+        <td>{{sr.requesterContact}}</td>
+        <td>{{sr.status}}</td>
+        <td>
+            <button mat-raised-button name="approve" color="primary" (click)="approve(sr)">Approve</button>
+            <button mat-raised-button color="accent">Reject</button>
+        </td>
+    </tr>
+</table>
+<!-- <mat-card *ngFor="let sr of submitted">
+    <mat-card-content>
+        Name: {{sr.bookName}} Owner: {{sr.ownerId}} Requested By: {{sr.requesterId}}
+    </mat-card-content>
+</mat-card>         -->
+<br/>
+<h3>Requests I Raised</h3>
+<table>
+    <tr>
+        <th>Book</th>
+        <th>Status</th>
+        <th>Owner Contact</th>
+        <th>Actions</th>
+    </tr>
+    <tr *ngFor="let sr of submitted">
+        <td>{{sr.bookName}}</td>
+        <td>{{sr.status}} on {{sr.approved|date}}</td>
+        <td>{{sr.ownerContact}}</td>
+        <td>
+            <button mat-raised-button color="primary">Say Thanks</button>
+            <button mat-raised-button color="accent">Withdraw</button>
+        </td>
+    </tr>
+</table>
+<!-- <mat-card *ngFor="let pr of submitted">
+    <mat-card-content>
+        Name: {{pr.bookName}} Owner: {{pr.ownerId}} Requested By: {{pr.requesterId}}
+    </mat-card-content>
+</mat-card>         -->
