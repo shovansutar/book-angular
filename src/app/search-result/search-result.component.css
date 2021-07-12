@@ -1,11 +1,13 @@
 .image_box{
-    max-width: 100px;
+    width: 100px;
+    height: 200px;
     padding: 10px;
 }
 
 mat-card {
     max-width: 400px;
     max-height: 400px;
+    margin: 10px;
     /* margin: 2em auto; */
 }
 

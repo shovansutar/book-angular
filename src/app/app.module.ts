@@ -26,6 +26,8 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './token-interceptor.service';
+import { MyRequestComponent } from './my-request/my-request.component';
+import { MyProfileComponent } from './my-profile/my-profile.component';
 
 const routes: Routes = [
   { 
@@ -34,6 +36,8 @@ const routes: Routes = [
     children:[
       { path: 'login'     , component: LoginComponent},
       { path: 'register'  , component: RegisterComponent},
+      { path: 'myrequest' , component: MyRequestComponent},
+      { path: 'myprofile' , component: MyProfileComponent},
       { path: 'search'    , component: SearchResultComponent},
       { path: 'edit'      , component: EditBookComponent, canActivate:[AuthGuard] }
     ] 
@@ -50,10 +54,12 @@ const routes: Routes = [
     EditBookComponent,
     PageNotFoundComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    MyRequestComponent,
+    MyProfileComponent
   ],
   imports: [
-    RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }),
+    RouterModule.forRoot(routes),
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,

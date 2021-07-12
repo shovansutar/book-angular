@@ -11,6 +11,7 @@ export class Book {
         public city            : String,
         public created         : Date,
         public status          : String,
-        public image1          : String
+        public image1          : String,
+        public ownerId         : String
     ){}
 }

@@ -16,7 +16,7 @@ export class EditBookComponent implements OnInit {
     private router: Router
   ) { }
   selectedFile: File = null;
-  bookModel = new Book('', '', '', '', '', '', '', '', '', new Date(), '', '');
+  bookModel = new Book('', '', '', '', '', '', '', '', '', new Date(), 'Available', '', '');
   categories = [];
   ngOnInit(): void {
     this.bookService.getCategories().subscribe((data:any[])=>{
@@ -34,6 +34,7 @@ export class EditBookComponent implements OnInit {
       console.log('File name: ', res.file);
       // console.log(res);
       this.bookModel.image1 = res.file;
+      this.bookModel.ownerId = localStorage.getItem('userid');
       const child$ = this.bookService.addBook(this.bookModel);
       child$.subscribe((cres: RestResponse) => {
         console.log('CHILD-HTTP response', cres);

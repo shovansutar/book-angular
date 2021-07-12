@@ -15,6 +15,10 @@ export class BookService {
   private FILE_UPLOAD     = "http://localhost:3300/api/upload";
   private REGISTER        = "http://localhost:3300/api/register";
   private LOGIN           = "http://localhost:3300/api/login";
+  private MY_SUBMITTED    = "http://localhost:3300/api/myrequests";
+  private MY_PENDING      = "http://localhost:3300/api/pendingreqs";
+  private REQUEST         = "http://localhost:3300/api/request";
+  private MYPROFILE       = "http://localhost:3300/api/myprofile";
   
 
   constructor(private httpClient: HttpClient) { }
@@ -66,6 +70,23 @@ export class BookService {
   public logout(){
     localStorage.removeItem('token');
     localStorage.removeItem('username');
+    localStorage.removeItem('userid');
   }
+  public getSubmittedReqs() {
+    return this.httpClient.get(this.MY_SUBMITTED);
+  }
+  public getMyPendingReqs() {
+    return this.httpClient.get(this.MY_PENDING);
+  }
+  public addBookRequest(r) {
+    console.log("Service > AddRequest: ", r);
+    return this.httpClient.post(this.REQUEST, r);      
+  }
+  public getMyProfile() {
+    return this.httpClient.get(this.MYPROFILE);
+  }
+  public updateRequest(sr){
+    return this.httpClient.put<any>(this.REQUEST + '/' + sr._id, sr);  
+  }  
 }
 

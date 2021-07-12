@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {BookService} from '../book.service'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-result',
@@ -8,10 +9,14 @@ import {BookService} from '../book.service'
 })
 export class SearchResultComponent implements OnInit {
 
-  constructor(private bookService: BookService) { }
+  constructor(
+    private bookService: BookService,
+    private router: Router
+  ) { }
   books = [];
   pattern = '';
-  
+  ls = localStorage;
+
   ngOnInit(): void {
     this.bookService.getAllBooks().subscribe((data:any[])=>{
       console.log(data);
@@ -38,5 +43,32 @@ export class SearchResultComponent implements OnInit {
       // console.log(data);
       this.books = data;
     });
+  }
+  request(b){
+    let newr:any = {
+      bookId: b._id, 
+      bookName : b.title, 
+      requesterId: this.ls.userid,
+      ownerId: b.ownerId,
+      message: 'TBD',
+      status: 'New'
+    };
+    this.bookService.getMyProfile().subscribe(
+      (p:any) => {
+        newr.requesterContact = p.name + ', Phone: ' + p.phone + ', email: ' + p.email;
+        this.bookService.addBookRequest(newr)
+        .subscribe(
+          res => {},
+          err => {
+            console.log(err)
+            this.router.navigate(['home/login']);
+          }
+        )  
+      },
+      err => {
+        console.log(err)
+        this.router.navigate(['home/login']);
+      }
+    )
   }
 }
